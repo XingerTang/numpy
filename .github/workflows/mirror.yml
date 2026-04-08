@@ -1,0 +1,20 @@
+# modify from: https://github.com/isaacs/github/issues/415#issuecomment-561700485
+name: Mirror Repo
+on:
+  schedule:
+    # nightly (0th hour 0th minute of every day)
+    - cron:  '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Mirror
+      run: |
+        git clone --mirror 'https://github.com/numpy/numpy.git'
+        cd numpy.git/
+        git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/XingerTang/numpy.git"
+        git push --mirror --exclude=refs/pull --exclude=.github/workflows/mirror.yml github
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
