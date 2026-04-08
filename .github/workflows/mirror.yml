@@ -15,8 +15,6 @@ jobs:
         git clone --mirror 'https://github.com/numpy/numpy.git'
         cd numpy.git/
         git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/XingerTang/numpy.git"
-        git fetch github
-        git pull github main --rebase
         git push github
       env:
         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
