@@ -12,11 +12,11 @@ jobs:
     steps:
     - name: Mirror
       run: |
+        git clone 'https://github.com/numpy/numpy.git'
+        cd numpy/
         git config --global user.email "${{ secrets.EMAIL }}"
         git config --global user.name "XingerTang"
         git config pull.ff only
-        git clone 'https://github.com/numpy/numpy.git'
-        cd numpy/
         git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/XingerTang/numpy.git"
         git fetch github
         git pull github main
